@@ -1,6 +1,6 @@
 .. -*- coding: utf-8 -*-
 
-plone3.buildout
+buildout.plone3
 ===============
 
 Configuración de buildout para instalar el CMS Plone 3.3.6.
@@ -11,10 +11,10 @@ estable `Plone 3.3.6`_ usando un esquema de instalación para desarrollos person
 
 Sugerencia seguir los pasos descritos en en el articulo en su sección de `Requisitos previos`_.
 
-Descargar codigo fuente
+Descargar código fuente
 =======================
 
-Para descargar el codigo fuente, ejecute el siguiente comando: ::
+Para descargar el código fuente, ejecute el siguiente comando: ::
 
   $ git clone https://github.com/plone-ve/buildout.plone3.git
 
@@ -45,6 +45,31 @@ Puede acceder a la ZMI para crear su sitio Plone en la siguiente dirección http
 Para detener la instancia Zope, ejecute el siguiente comando: ::
 
   ./bin/instance stop
+
+Otros comandos disponibles
+==========================
+
+./bin/repozo
+
+  Es un script de Zope para hacer copias de seguridad incrementales y completas de un archivo Data.fs.
+
+  Para **respaldar** la ZODB *completamente*, ejecute el siguiente comando: ::
+
+    ./bin/repozo -BvzF -r ./backups -f ./var/filestorage/Data.fs
+
+  Para **respaldar** la ZODB de *forma incremental*, ejecute el siguiente comando: ::
+
+    ./bin/repozo -BvzQ -r ./backups -f ./var/filestorage/Data.fs
+
+  Para **restaurar** datos de un respaldo ZODB *a partir de la hora actual*, ejecute el siguiente comando: ::
+
+    ./bin/repozo -Rv -r ./backups -o ./var/filestorage/Data.fs
+
+  Para **restaurar** datos de un respaldo ZODB *a partir de la fecha y hora especifica*, ejecute el siguiente comando: ::
+
+    ./bin/repozo -Rv--date='yyyy-mm-dd' -r ./backups -o ./var/filestorage/Data.fs
+
+  Para mas información consulte la ayuda incluida en el script con el siguiente comando ``./bin/repozo -h``.
 
 .. _zc.buildout: http://plone-spanish-docs.readthedocs.org/en/latest/buildout/replicacion_proyectos_python.html
 .. _Buildout y Plone 3: http://plone-spanish-docs.readthedocs.org/en/latest/buildout/plone3_zcbuildout.html
